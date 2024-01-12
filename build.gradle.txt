@@ -1,0 +1,107 @@
+plugins {
+    id 'java'
+    id 'jacoco'
+}
+
+group 'tools.templates'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JUnit Jupiter for testing
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+
+    // Project Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.26'
+    annotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+    // SLF4J API and Simple Binding
+    implementation 'org.slf4j:slf4j-api:2.0.7'
+    implementation 'org.slf4j:slf4j-simple:2.0.7'
+
+    // Jackson for JSON processing
+    implementation 'com.fasterxml.jackson.core:jackson-core:2.13.3'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = "0.8.8"
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+// Task to run JaCoCo report
+task jacocoTestReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
+    dependsOn test
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+    sourceDirectories.setFrom(files(sourceSets.main.allSource.srcDirs))
+    classDirectories.setFrom(files(sourceSets.main.output))
+    executionData.setFrom(files("$buildDir/jacoco/test.exec"))
+}
+
+test.finalizedBy jacocoTestReportplugins {
+                                     id 'java'
+                                     id 'jacoco'
+                                 }
+
+                                 group 'tools.templates'
+                                 version '1.0-SNAPSHOT'
+
+                                 repositories {
+                                     mavenCentral()
+                                 }
+
+                                 dependencies {
+                                     // JUnit Jupiter for testing
+                                     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+
+                                     // Project Lombok
+                                     compileOnly 'org.projectlombok:lombok:1.18.26'
+                                     annotationProcessor 'org.projectlombok:lombok:1.18.26'
+
+                                     // SLF4J API and Simple Binding
+                                     implementation 'org.slf4j:slf4j-api:2.0.7'
+                                     implementation 'org.slf4j:slf4j-simple:2.0.7'
+
+                                     // Jackson for JSON processing
+                                     implementation 'com.fasterxml.jackson.core:jackson-core:2.13.3'
+                                     implementation 'com.fasterxml.jackson.core:jackson-databind:2.13.3'
+                                 }
+
+                                 test {
+                                     useJUnitPlatform()
+                                 }
+
+                                 jacoco {
+                                     toolVersion = "0.8.8"
+                                     reports {
+                                         xml.enabled = true
+                                         html.enabled = true
+                                     }
+                                 }
+
+                                 // Task to run JaCoCo report
+                                 task jacocoTestReport(type: org.gradle.testing.jacoco.tasks.JacocoReport) {
+                                     dependsOn test
+                                     reports {
+                                         xml.enabled = true
+                                         html.enabled = true
+                                     }
+                                     sourceDirectories.setFrom(files(sourceSets.main.allSource.srcDirs))
+                                     classDirectories.setFrom(files(sourceSets.main.output))
+                                     executionData.setFrom(files("$buildDir/jacoco/test.exec"))
+                                 }
+
+                                 test.finalizedBy jacocoTestReport
